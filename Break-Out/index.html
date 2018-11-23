@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Custom Brick Game</title>
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas {
+            background: rgb(255,0,0);
+            background: linear-gradient(90deg, rgba(255,0,0,0.68531162464986) 20%, rgba(0,212,255,0.9037990196078431) 47%, rgba(255,0,28,0.8057598039215687) 70%);
+            display: block; margin: 0 auto;
+            }
+    </style>
+</head>
+<body>
+    <canvas id="ballCanvas" width="480" height="320"></canvas>
+    <form action="">
+        <h1>Edit your game</h1>
+        <label for="difficulty">Game Difficulty: </label>
+        <select name="difficulty" id="difficulty-select">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <label for="size">Game Size: </label>
+        <select name="size" id="size">
+            <option value="200">Small</option>
+            <option value="480">Medium</option>
+            <option value="969">Large</option>
+        </select>
+        <label for="ballColor">Ball Color: </label>
+        <input type="text" name="ballColor" id="ballColor">
+        <label for="brickColor">Brick Color: </label>
+        <input type="text" name="brickColor" id="brickColor">
+        <button id="submit" type="submit">Submit</button>
+        <p id="reset-settings">Click to reset game settings...</p>
+    </form>
+
+    <script>
+    var canvas = document.getElementById("ballCanvas");
+    var ctx = canvas.getContext("2d");
+    </script>
+
+</body>
+</html>
