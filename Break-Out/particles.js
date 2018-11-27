@@ -1,4 +1,11 @@
+// Asim Zaidi
+
+// giving up on this project for now - going to simply book a meeting with Dani and figure out hwo to 
+// get particle js to work iwth nOde.
+
 class ParticleJS {
+    // constructor defines the canvas, ctx, width, height
+    // instantiates other objects and on interval, draws.
     constructor() {
         this.canvas = document.getElementById("ballCanvas");
         this.ctx = this.canvas.getContext("2d");
@@ -11,24 +18,34 @@ class ParticleJS {
         }, 10);
     }
 
+    // Draw method clears the ctx and draws the elements.
+    // sets an x and y within the canvas and moves the ball, then draws.
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         // settings these here so we balls generate at a new x and y each
-        let x = Math.floor(Math.random() * this.canvas.width);
-        let y = Math.floor(Math.random() * this.canvas.height);
-        this.ball.moveBall(x,y);
+        this.ball.moveBall();
         this.ball.drawBall(this.ctx);
     }
 }
 
-class Ball {
-    constructor(x,y) {
+// Defines properties shared by all sprites
+class Sprite extends ParticleJS {
+    constructor() {
+        this.x = Math.floor(Math.random() * super.canvas.width);
+        this.y = Math.floor(Math.random() * super.canvas.height);
+    }
+}
+
+class Ball extends Sprite {
+    constructor() {
+        super()
         this.radius = 15;
         // dx & dy are basically the amount at which x and y will move at each frame.
         this.dx = 2;
         this.dy = -2;
-        this.x = this.x;
-        this.y = this.y;
+
+        // this.x = this.x;
+        // this.y = this.y;
         this.colors = ["blue", "red", "green", "yellow", "purple", "orange"];
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     };
@@ -40,9 +57,7 @@ class Ball {
         ctx.fill();
         ctx.closePath();
     }
-    moveBall(x,y) {
-        this.x = x;
-        this.y = y;
+    moveBall() {
         this.x += this.dx;
         this.y += this.dy;
     }

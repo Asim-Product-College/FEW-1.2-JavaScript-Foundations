@@ -1,3 +1,27 @@
+/*
+    The classes below define objects that make the game of breakout. 
+    
+    Most of the objects are displayed on the canvas at an x and y position. 
+    The Sprite class owns these properties and the other classes gain these
+    properties by extending Sprite. 
+    All classes that draw something to the screen implement a render method. 
+    This method takes a canvas context as a parameter and draws the object
+    on to this context. 
+    The Bricks class owns an array of Bricks which it renders by looping 
+    through the array and calling render on each brick. 
+    The label class holds a text string which is redners to the screen. 
+    The GameLabel class extends Label to render a text string with a 
+    value. This simplifies rendering the score and lives. 
+    The Game class creates all of the objects and manages the game. 
+    */
+
+class Sprite {
+    constructor() {
+      this.x = 0
+      this.y = 0
+    }
+  }
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var paddleHeight = 10;
@@ -43,8 +67,8 @@ class Game {
         const { width, height } = this.canvas;
         // instantiate games objects here!
         this.ball = new Ball(12, "#1C1C1C");
-        this.ball.x = width / 2
-        this.ball.y = height-30;
+        // this.ball.x = width / 2
+        // this.ball.y = height-30;
         // paddle bricks, etc.
         this.bricks = new Bricks();
         this.bricks.brickRowCount = 3;
@@ -133,15 +157,15 @@ class Game {
     }
 }
 
-class Ball {
+class Ball extends Sprite {
     constructor(radius, color) {
         this.radius = radius;
         this.color = color;
         // dx & dy are basically the amount at which x and y will move at each frame.
         this.dx = 2;
         this.dy = -2;
-        this.x = 0;
-        this.y = 0;
+        // this.x = 0;
+        // this.y = 0;
     }
     drawBall(ctx) {
         ctx.beginPath();
@@ -158,9 +182,12 @@ class Ball {
     }
 }
 
-class Bricks {
+// Defines a brick
+class Bricks extends Sprite {
     constructor(brickRowCount, brickColumnCount, brickWidth, brickHeight,
                 brickPadding, brickOffsetTop, brickOffsetLeft, bricks, brickX) {
+        super()
+        this.status = 1;
         this.brickRowCount = brickRowCount;
         this.brickColumnCount = brickColumnCount
         this.brickWidth = brickWidth
@@ -172,6 +199,7 @@ class Bricks {
         this.brickX = 0;
         this.brickY = 0;
     }
+
     drawBricks(ctx) {
 
         for(let c = 0; c < this.brickColumnCount; c++) {
