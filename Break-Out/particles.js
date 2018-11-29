@@ -3,6 +3,7 @@
 // giving up on this project for now - going to simply book a meeting with Dani and figure out hwo to 
 // get particle js to work iwth nOde.
 
+
 class ParticleJS {
     // constructor defines the canvas, ctx, width, height
     // instantiates other objects and on interval, draws.
@@ -31,6 +32,7 @@ class ParticleJS {
 // Defines properties shared by all sprites
 class Sprite extends ParticleJS {
     constructor() {
+        super();
         this.x = Math.floor(Math.random() * super.canvas.width);
         this.y = Math.floor(Math.random() * super.canvas.height);
     }

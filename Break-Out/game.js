@@ -1,27 +1,4 @@
-/*
-    The classes below define objects that make the game of breakout. 
-    
-    Most of the objects are displayed on the canvas at an x and y position. 
-    The Sprite class owns these properties and the other classes gain these
-    properties by extending Sprite. 
-    All classes that draw something to the screen implement a render method. 
-    This method takes a canvas context as a parameter and draws the object
-    on to this context. 
-    The Bricks class owns an array of Bricks which it renders by looping 
-    through the array and calling render on each brick. 
-    The label class holds a text string which is redners to the screen. 
-    The GameLabel class extends Label to render a text string with a 
-    value. This simplifies rendering the score and lives. 
-    The Game class creates all of the objects and manages the game. 
-    */
-
-class Sprite {
-    constructor() {
-      this.x = 0
-      this.y = 0
-    }
-  }
-
+// Some global variables to make things easier.
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var paddleHeight = 10;
@@ -30,9 +7,11 @@ var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 
+// key function listeners
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+// Functions for when user presses keys to move paddle
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = true;
@@ -50,6 +29,7 @@ function keyUpHandler(e) {
     }
 }
 
+// function to draw that paddle
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
@@ -58,114 +38,15 @@ function drawPaddle() {
     ctx.closePath();
 }
 
-class Game {
-    constructor() {
-        this.canvas = document.getElementById("myCanvas");
-        this.ctx = this.canvas.getContext("2d");
-        // this takes the canvas object and if it has any of these properties(width, etc) we can now ref them as width, etc.. sike atually not use this.canvas.property
-        // this is BLOCK scoped!
-        const { width, height } = this.canvas;
-        // instantiate games objects here!
-        this.ball = new Ball(12, "#1C1C1C");
-        // this.ball.x = width / 2
-        // this.ball.y = height-30;
-        // paddle bricks, etc.
-        this.bricks = new Bricks();
-        this.bricks.brickRowCount = 3;
-        this.bricks.brickColumnCount = 5;
-        this.bricks.brickWidth = 75;
-        this.bricks.brickHeight = 20;
-        this.bricks.brickPadding = 10;
-        this.bricks.brickOffsetTop = 30;
-        this.bricks.brickOffsetLeft = 30;
-        this.bricks.bricks = [];
-        for(let c = 0; c<this.bricks.brickColumnCount; c++) {
-            this.bricks.bricks[c] = [];
-            for(let r = 0; r<this.bricks.brickRowCount; r++) {
-                this.bricks.bricks[c][r] = { x: 0, y: 0, status: 1 };
-            }
-        }
-
-        // this.bricks.bricks = [];
-        // for(var c=0; c<this.bricks.brickColumnCount; c++) {
-        //     this.bricks.bricksbricks[c] = [];
-        //     for(var r=0; r<this.brickRowCount; r++) {
-        //         this.bricks.bricksbricks[c][r] = { x: 0, y: 0 };
-        //     }
-        // }
-        // es6 syntax to call draw one time to start the engine and do it over and over again.
-        setInterval(() => {
-            this.draw();
-            // do other stuff
-        }, 10);
-    }
-
-    draw() {
-        // clear canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ball.moveBall();
-        this.ball.drawBall(this.ctx);
-        // this.paddle.drawPaddle(this.ctx, this.canvas.height);
-        drawPaddle();
-        this.bricks.drawBricks(ctx);
-        // check for collisions
-        this.checkForWallBallBounce();
-        this.checkForPaddleMovement(); 
-        this.checkForBricksCollision();          
-    }
-
-    checkForBricksCollision() {
-        for(let c = 0; c < this.bricks.brickColumnCount; c++) {
-            for(let r = 0; r < this.bricks.brickRowCount; r++) {
-                let b = this.bricks.bricks[c][r];
-                if(b.status == 1) {
-                    if(this.ball.x > b.x && this.ball.x < b.x + this.bricks.brickWidth && this.ball.y > b.y && this.ball.y < b.y + this.bricks.brickHeight) {
-                        this.ball.dy = -this.ball.dy;
-                        b.status = 0;
-                    }
-                }
-            }
-        }
-    }
-    checkForWallBallBounce() {
-        // 
-        if (this.ball.x + this.ball.dx > this.canvas.width - this.ball.radius || this.ball.x + this.ball.dx < this.ball.radius) {
-            this.ball.dx = -this.ball.dx;
-        }
-        if (this.ball.y + this.ball.dy < this.ball.radius) {
-            this.ball.dy = -this.ball.dy;
-        }
-        else if (this.ball.y + this.ball.dy > canvas.height - this.ball.radius) {
-            if(this.ball.x > paddleX && this.ball.x < paddleX + paddleWidth) {
-                if(this.ball.x= this.ball.x-paddleHeight) {
-                    this.ball.dy = -this.ball.dy;
-                } else {
-                alert("GAME OVER");
-                document.location.reload();
-                }
-            }
-        }
-    }
-
-    checkForPaddleMovement() {
-        if(rightPressed && paddleX < canvas.width-paddleWidth) {
-            paddleX += 7;
-        }
-        else if(leftPressed && paddleX > 0) {
-            paddleX -= 7;
-        }
-    }
-}
-
-class Ball extends Sprite {
-    constructor(radius, color) {
+class Ball {
+    constructor(radius, color, x, y) {
         this.radius = radius;
         this.color = color;
         // dx & dy are basically the amount at which x and y will move at each frame.
         this.dx = 2;
         this.dy = -2;
-        // this.x = 0;
-        // this.y = 0;
+        this.x = x;
+        this.y = y;
     }
     drawBall(ctx) {
         ctx.beginPath();
@@ -183,10 +64,9 @@ class Ball extends Sprite {
 }
 
 // Defines a brick
-class Bricks extends Sprite {
+class Bricks {
     constructor(brickRowCount, brickColumnCount, brickWidth, brickHeight,
                 brickPadding, brickOffsetTop, brickOffsetLeft, bricks, brickX) {
-        super()
         this.status = 1;
         this.brickRowCount = brickRowCount;
         this.brickColumnCount = brickColumnCount
@@ -225,6 +105,120 @@ class Bricks extends Sprite {
         }
     }
 
+}
+
+// Game class that creates Ball object,
+class Game {
+    constructor() {
+        // this takes the canvas object and if it has any of these properties(width, etc) we can now ref them as width, etc.. sike atually not use this.canvas.property
+        // this is BLOCK scoped!
+        const { width, height } = canvas;
+        // instantiate ball object with ball radius, color, x and y.
+        this.ball = new Ball(12, "#1C1C1C", width / 2, height-30);
+        this.lives = 3
+        this.score = 0
+
+        // instantiate Bricks object
+        this.bricks = new Bricks();
+        // set brick properties
+        this.bricks.brickRowCount = 3;
+        this.bricks.brickColumnCount = 5;
+        this.bricks.brickWidth = 75;
+        this.bricks.brickHeight = 20;
+        this.bricks.brickPadding = 10;
+        this.bricks.brickOffsetTop = 30;
+        this.bricks.brickOffsetLeft = 30;
+        this.bricks.bricks = [];
+        // for look to create the columns and rows of bricks
+        for(let c = 0; c<this.bricks.brickColumnCount; c++) {
+            this.bricks.bricks[c] = [];
+            for(let r = 0; r<this.bricks.brickRowCount; r++) {
+                this.bricks.bricks[c][r] = { x: 0, y: 0, status: 1 };
+            }
+        }
+        // es6 syntax to call draw one time to start the engine and do it over and over again.
+        setInterval(() => {
+            this.draw();
+            // do other stuff
+        }, 10);
+        // this.draw()
+    }
+    // draw function draw ball and paddle
+    draw() {
+        // clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.ball.drawBall(ctx);
+        drawPaddle();
+        this.bricks.drawBricks(ctx);
+
+        this.ball.moveBall();
+        // check for collisions
+        this.checkForWallBallBounce();
+        this.checkForPaddleMovement();
+        this.checkForBricksCollision();
+
+        // requestAnimationFrame(this.update.bind(this))
+    }
+    
+    // brick collision detection 
+    checkForBricksCollision() {
+        const {ball, bricks } = this
+        for(let c = 0; c < bricks.brickColumnCount; c++) {
+            for(let r = 0; r < bricks.brickRowCount; r++) {
+                const brick = bricks.bricks[c][r];
+                if(brick.status == 1) {
+                    if(ball.x > brick.x && ball.x < brick.x + bricks.brickWidth && ball.y > brick.y && ball.y < brick.y + brick.brickHeight) {
+                        ball.dy = -ball.dy;
+                        brick.status = 0;
+                        this.score += 1;
+                        if (this.score == bricks.rows * bricks.cols) {
+                            alert("YOU WIN, CONGRATULATIONS!");
+                            document.location.reload();
+                          }
+                    }
+                }
+            }
+        }
+    }
+
+    // wall bounce collision is broken from bottom and staggering on sides.
+    checkForWallBallBounce() {
+        const { ball, paddle } = this
+        if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
+            ball.dx = -ball.dx;
+        }
+        if (ball.y + ball.dy < ball.radius) {
+            ball.dy = -ball.dy;
+        }
+        else if (ball.y + ball.dy > canvas.height - ball.radius) {
+            if(ball.x > paddleX && ball.x < paddleX + paddleWidth) {
+                if(ball.x= ball.x-paddleHeight) {
+                    ball.dy = -ball.dy;
+                } else {
+                    lives--;
+                    if (!this.lives) {
+                        alert("GAME OVER!")
+                    }
+                    else {
+                        ball.x = canvas.width/2;
+                        ball.y = canvas.height-30;
+                        ball.dx = 3;
+                        ball.dy = -3;
+                        paddleX = (canvas.width - paddleWidth) / 2;
+                    }
+                }
+            }
+        }
+    }
+
+    checkForPaddleMovement() {
+        if(rightPressed && paddleX < canvas.width-paddleWidth) {
+            paddleX += 7;
+        }
+        else if(leftPressed && paddleX > 0) {
+            paddleX -= 7;
+        }
+    }
 }
 
 game = new Game();
