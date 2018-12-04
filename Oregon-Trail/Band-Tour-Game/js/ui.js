@@ -2,7 +2,7 @@
 // --------------------------------------------------------
 // UI - This class is responsible for managing User Interface 
 // elements. It shows the Attack and Shop popups and displays
-// notificcations as they occur. 
+// notifications as they occur. 
 
 class UI {
     constructor(game) {

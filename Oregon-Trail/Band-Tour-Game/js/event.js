@@ -131,7 +131,7 @@ const eventData = [
    
   // ----------------------------------------------
   // Defines a product that can be bought from a shop
-  class Product  {
+  class Product {
     constructor({ item, qty, price }) {
       this.item = item;
       this.qty = qty;
@@ -173,8 +173,8 @@ const eventData = [
     
     generateEvent () {
       // pick a random eventType
-      var eventIndex = Math.floor(Math.random() * this.eventTypes.length);
-      var eventData = this.eventTypes[eventIndex];
+      const eventIndex = Math.floor(Math.random() * this.eventTypes.length);
+      const eventData = this.eventTypes[eventIndex];
   
       // events that consist in updating a stat
       if (eventData.type == 'STAT-CHANGE') {
