@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Oregon Trail</title>
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css"/>
+  </head>
+  <body>
+    <div id="journey">
+      <div class="title">
+        <h1>Oregon Trail</h1>
+        <p>A totally accurate historical simulation!</p>
+      </div>
+      <div id="stats-area" class="info-box">
+        <div class="stat">Day <span id="stat-day" class="stat-value"></span></div>
+        <div class="stat">Distance <span id="stat-distance" class="stat-value"></span></div>
+        <div class="stat">Crew <span id="stat-crew" class="stat-value"></span></div>
+        <div class="stat">Dilitheum Crystals <span id="stat-oxen" class="stat-value"></span></div>
+        <div class="stat">Supplies <span id="stat-food" class="stat-value"></span></div>
+        <div class="stat">Credits <span id="stat-money" class="stat-value"></span></div>
+        <div class="stat">Phasers <span id="stat-firepower" class="stat-value"></span></div>
+        <div class="stat">Tonnage <span id="stat-weight" class="stat-value"></span><span id="stat-capacity" class="stat-value"></span></div>
+      </div>
+      
+      <div class="updates-area info-box" id="updates-area"></div>
+      
+      <div id="shop" class="hidden info-box">
+        <div id="prods">
+        </div>
+        <button>Leave shop</button>
+      </div>
+      
+      <div id="attack" class="hidden info-box">
+        <div id="attack-description"></div>
+        <button id="fight">Battle</button>
+        <button id="runaway">Flee</button>
+      </div>
+      
+      <div id="progress-area">
+          <img id="road" src="images/road.jpeg" alt="Road">
+        <img id="caravan" class="bus" src="images/bus.png" alt="Caravan Image">
+      </div>
+    </div>
+ 
+    <div id="event"></div>
+    
+    <!-- Be sure to load classes in order! Classes dependent on other classes 
+    should load *AFTER* their dependencies. For example Game loads after all 
+    of the other classes. -->
+    <script src="js/Config.js"></script>
+    <script src="js/Event.js"></script>
+    <script src="js/Caravan.js"></script>
+    <script src="js/UI.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

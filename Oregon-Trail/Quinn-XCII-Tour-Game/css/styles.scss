@@ -1,0 +1,85 @@
+html {
+  height: 100%;
+    body {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: Courier;
+        #journey {
+            display: flex;
+            flex-direction: column;
+            background-color: #5F9FFF;
+
+            #stats-area {
+                background-color: white;
+                float: left;
+                height: 150px;
+                width: 156px;
+                margin: 10px;
+                padding: 10px;
+                font-size: 14px;
+                .stat-value {
+                    float: right;
+                }
+            }
+            #updates-area {
+                background-color: white;
+                float: left;
+                width: 350px;
+                margin: 10px;
+                height: 150px;
+                padding: 10px;
+                font-size: 12px;
+                overflow-y: scroll;
+                .update-positive {
+                    color: #669966;
+                  }
+                  
+                  .update-negative {
+                    color: red;
+                  }
+                  
+                  .update-neutral {
+                    color: #90908F;
+                  }
+            }
+            .hidden {
+                display: none;
+            }
+            #shop {
+                float: left;
+                background-color: white;
+                margin: 10px;
+                padding: 10px;
+                height: 90px;
+                width: 350px;
+                button {
+                    clear: both;
+                    float: left;
+                    margin: 5px;
+                }
+            }
+            #attack {
+                float: left;
+                background-color: white;
+                margin: 10px;
+                padding: 10px;
+                height: 60px;
+                width: 150px;
+            }
+            #progress-area {
+                float: left;
+                position: relative;
+                width: 30em;
+                margin: 10px;
+                .bus {
+                    max-width: 200px;
+                }
+              }
+
+        
+        }
+    }
+}

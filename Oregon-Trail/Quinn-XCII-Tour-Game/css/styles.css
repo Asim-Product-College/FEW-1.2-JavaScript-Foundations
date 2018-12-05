@@ -1,0 +1,67 @@
+html {
+  height: 100%; }
+  html body {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Courier; }
+    html body #journey {
+      display: flex;
+      flex-direction: column;
+      background-color: #5F9FFF; }
+      html body #journey #stats-area {
+        background-color: white;
+        float: left;
+        height: 150px;
+        width: 156px;
+        margin: 10px;
+        padding: 10px;
+        font-size: 14px; }
+        html body #journey #stats-area .stat-value {
+          float: right; }
+      html body #journey #updates-area {
+        background-color: white;
+        float: left;
+        width: 350px;
+        margin: 10px;
+        height: 150px;
+        padding: 10px;
+        font-size: 12px;
+        overflow-y: scroll; }
+        html body #journey #updates-area .update-positive {
+          color: #669966; }
+        html body #journey #updates-area .update-negative {
+          color: red; }
+        html body #journey #updates-area .update-neutral {
+          color: #90908F; }
+      html body #journey .hidden {
+        display: none; }
+      html body #journey #shop {
+        float: left;
+        background-color: white;
+        margin: 10px;
+        padding: 10px;
+        height: 90px;
+        width: 350px; }
+        html body #journey #shop button {
+          clear: both;
+          float: left;
+          margin: 5px; }
+      html body #journey #attack {
+        float: left;
+        background-color: white;
+        margin: 10px;
+        padding: 10px;
+        height: 60px;
+        width: 150px; }
+      html body #journey #progress-area {
+        float: left;
+        position: relative;
+        width: 30em;
+        margin: 10px; }
+        html body #journey #progress-area .bus {
+          max-width: 200px; }
+
+/*# sourceMappingURL=styles.css.map */
