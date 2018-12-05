@@ -27,42 +27,6 @@ class Caravan {
       this.money = money;
       this.firepower = firepower;
     }
-    
-    // update weight and capacity
-    updateWeight () {
-      let droppedFood = 0;
-      let droppedGuns = 0;
-  
-      // how much can the caravan carry
-      this.capacity = this.oxen * Config.WEIGHT_PER_OX + this.crew * Config.WEIGHT_PER_PERSON;
-  
-      // how much weight do we currently have
-      this.weight = this.food * Config.FOOD_WEIGHT + this.firepower * Config.FIREPOWER_WEIGHT;
-  
-      // drop things behind if it's too much weight
-      // assume guns get dropped before food
-      while (this.firepower && this.capacity <= this.weight) {
-        this.firepower--;
-        this.weight -= Config.FIREPOWER_WEIGHT;
-        droppedGuns++;
-      }
-  
-      if (droppedGuns) {
-        this.game.ui.notify(`Left ${droppedGuns} guns behind`, 'negative');
-      }
-  
-      while (this.food && this.capacity <= this.weight) {
-        this.food--;
-        this.weight -= Config.FOOD_WEIGHT;
-        droppedFood++;
-      }
-  
-      if (droppedFood) {
-        this.game.ui.notify(`Left ${droppedFood} food provisions behind`, 'negative');
-      }
-    }
-  
-  
     // update covered distance
     updateDistance () {
       // the closer to capacity, the slower
